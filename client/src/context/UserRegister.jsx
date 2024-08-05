@@ -29,7 +29,8 @@ const UserRegisterContext = ({ children }) => {
     }
 
     // Create socket connection
-    const socket = io("http://localhost:5121", {
+    const socket = io("https://chat-web-app-mern-1.onrender.com", {
+    // const socket = io("http://localhost:5121", {
       query: { userId: saveUser._id },
       transports: ["websocket"], // Ensure WebSocket transport
       withCredentials: true, // Include credentials in the request

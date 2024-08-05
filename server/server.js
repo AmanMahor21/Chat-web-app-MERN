@@ -17,9 +17,9 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.json());
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+// app.get("/", (req, res) => {
+//   res.send("Hello World!");
+// });
 app.use("/auth", authRoutes);
 app.use("/messages", messageRoutes);
 app.use("/api/users", contactRoutes);
