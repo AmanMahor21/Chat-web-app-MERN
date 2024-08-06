@@ -4,10 +4,10 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": " set port=4212 && node server.js",
+    "start": " node server/server.js",
     "dev": "nodemon server/server.js",
     "server": "nodemon server/server.js",
-        "build": "webpack --mode production"
+    "build": "npm install && npm install --prefix client && npm run build --prefix client"
   },
   "keywords": [],
   "author": "",

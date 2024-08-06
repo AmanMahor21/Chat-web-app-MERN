@@ -66,4 +66,18 @@ const receiveMessage = async (req, res) => {
   }
 };
 
-module.exports = { sendMessage, receiveMessage };
+const allMessages = async (req, res) => {
+  try {
+    const totalMessage = await Message.find();
+    if (!totalMessage || totalMessage.length === 0) {
+      return await res.status(200).json([]);
+    }
+    console.log(totalMessage);
+    return await res.status(200).json(totalMessage);
+  } catch (error) {
+    console.log("Error in allMessages controller");
+    res.status(500).json({ error, error: "Internal Server Error" });
+  }
+};
+
+module.exports = { sendMessage, receiveMessage, allMessages };

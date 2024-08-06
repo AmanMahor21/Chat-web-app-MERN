@@ -8,19 +8,24 @@ import useGetTextFromSocket from "../../hooks/useGetTextFromSocket";
 import notificationSound from "../../assets/sounds/notification.mp3";
 // import useExtractDate from "../../utils/extractDate";
 import { format, isValid } from "date-fns";
+import useAllMessages from "../../hooks/useAllMessages";
 
 const ConversationBox = () => {
   const lastMessage = useRef(null);
   const findChatsRef = useRef([]);
   const { selected, searchText, setSearchedMsg, searchedMsg, moveChat } =
     useStore();
+  const ary = [];
   const chat = useGetMessages();
+  ary.push(chat);
   const { saveUser, onlineUser } = useContext(authContext);
 
   console.log(chat, "chat chat");
   // const isSameDate = useExtractDate();
+  useAllMessages();
   useGetTextFromSocket();
   console.log(selected, "selectd");
+  console.log(findChatsRef, "findchat");
   useEffect(() => {
     lastMessage?.current?.scrollIntoView({ behavior: "smooth" });
     const unseenMessage = unseenText(chat, findChatsRef);

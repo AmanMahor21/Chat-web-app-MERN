@@ -16,9 +16,8 @@ const Conversation = ({ user, idx, ind }) => {
   // console.log(user._id, "userid");
   const isOnline = onlineUser && onlineUser.includes(user._id);
 
-  useEffect(() => {
-  }, []);
-  const lastDate = useLastMessageDate(chat);
+  useEffect(() => {}, []);
+  const lastDate = useLastMessageDate(chat, user);
   const unseenMsg = unseenText(chat);
   console.log(lastDate, "lastDate lastDate");
   return (

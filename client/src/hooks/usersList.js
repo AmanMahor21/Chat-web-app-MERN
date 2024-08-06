@@ -10,7 +10,7 @@ const useUsersList = () => {
   useEffect(() => {
     const chatUser = async () => {
       try {
-        const res = await fetch(`http://localhost:5121/api/users`, {
+        const res = await fetch(`http://localhost:5121/api/users`, {          
           method: "GET",
           headers: {
             "Content-Type": "application/json",

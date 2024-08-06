@@ -10,6 +10,9 @@ const useStore = create((set) => ({
   chat: [],
   setChat: (chat) => set({ chat }),
 
+  allChat: [],
+  setAllChat: (allChat) => set({ allChat }),
+
   moveChat: 0,
   // setMoveChat: (state) => set({ count: state.count + 1 }),
   setMoveChat: (moveChat) => set({ moveChat }),
