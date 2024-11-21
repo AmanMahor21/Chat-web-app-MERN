@@ -50,7 +50,7 @@ const register = async (req, res) => {
 };
 
 const login = async function (req, res) {
-  // console.log("ASDASD");
+  console.log("ASDASD");  
   try {
     const { email, password } = req.body;
     // console.log(email, password);

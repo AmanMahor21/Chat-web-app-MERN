@@ -32,7 +32,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "https://chatbackend-ij9m.onrender.com",
+  "proxy": "https://chat-web-app-mern.onrender.com",
   
   "eslintConfig": {
     "extends": [

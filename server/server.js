@@ -13,6 +13,11 @@ const { app, httpServer } = require("./utils/socketIo");
 dotnev.config();
 const port = process.env.REACT_APP_SERVER_PORT || 8080;
 
+// app.use(cors({
+//   origin: "http://localhost:3000", // Adjust the frontend URL as needed
+//   methods: ["GET", "POST", "PUT", "DELETE"],
+//   credentials: true, // Allow cookies to be sent with cross-origin requests
+// }));
 app.use(express.json()); 
 app.use(cookieParser());
 app.use(bodyParser.json());

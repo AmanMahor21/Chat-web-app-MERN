@@ -9,7 +9,8 @@ const generateAccessToken = async (userID, res) => {
   res.cookie("cookie", token, {
     maxAge: 1 * 24 * 60 * 60 * 1000,
     httpOnly: true,
-    sameSite: "strict",
+    secure: true, // Ensures the cookie is only sent over HTTPS
+    sameSite: "none",
   });
   // console.log(token, "i m recieving, when sending cookie to browwser");
   return token;
