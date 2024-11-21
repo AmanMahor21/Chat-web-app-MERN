@@ -1,11 +1,9 @@
-import { useEffect, useState, useContext } from "react";
+// import { useContext } from "react";
 import useStore from "../store/store";
-import { useLastMessageDate, getMsg } from "../utils/decodeTime";
-// import {  } from " ";
-import { authContext } from "../context/UserRegister";
+// import { authContext } from "../context/UserRegister";
 
 const useSendMessages = () => {
-  const { onlineUser, socketIo } = useContext(authContext);
+  // const { onlineUser, socketIo } = useContext(authContext);
   const { selected, setChat, chat, isSelected } = useStore();
 
   const sendMessage = async (message) => {

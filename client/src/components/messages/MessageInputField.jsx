@@ -1,23 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { IoIosSend } from "react-icons/io";
 import { useSendMessages } from "../../hooks/useSendMessages.js";
 
 const MessageInputField = () => {
   const [input, setInput] = useState("");
-  const [inputDebounce, setInputDebounce] = useState(input);
+  // const [inputDebounce, setInputDebounce] = useState(input);
   const sendMessage = useSendMessages();
 
-  useEffect(() => {
-    const inputTimeOut = setTimeout(() => {
-      setInputDebounce(input);
-    }, 400);
+  // useEffect(() => {
+  //   const inputTimeOut = setTimeout(() => {
+  //     setInputDebounce(input);
+  //   }, 400);
 
-    return () => {
-      clearTimeout(inputTimeOut);
-    };
-  }, [input]);
-
-  
+  //   return () => {
+  //     clearTimeout(inputTimeOut);
+  //   };
+  // }, [input]);
 
   const sendMessageHandle = async (e) => {
     e.preventDefault();

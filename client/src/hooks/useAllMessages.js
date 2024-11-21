@@ -1,16 +1,15 @@
-import React, { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import useStore from "../store/store";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { isValid, format } from "date-fns";
-import { authContext } from "../context/UserRegister";
+// import { authContext } from "../context/UserRegister";
 const useAllMessages = (saveUser) => {
-  const { setAllChat, allChat, setAllLast_MsgDay } = useStore();
+  const {  setAllLast_MsgDay } = useStore();
   // const {saveUser} = useContext(authContext)
   // console.log(saveUser._id, "ll");
   useEffect(() => {
-    const fetchAllChat = async (setFormatDate) => {
-      console.log(saveUser, "ass");
+    const fetchAllChat = async () => {
       try {
         // const res = await fetch(
         const res = await fetch(
@@ -34,7 +33,7 @@ const useAllMessages = (saveUser) => {
           // console.log(ele._id.sender, "nn");
           return {
             _id:
-              saveUser._id == ele._id.sender
+              saveUser._id === ele._id.sender
                 ? ele._id.receiver
                 : ele._id.sender,
             createdAt: day ? format(newDate, "eee") : null,

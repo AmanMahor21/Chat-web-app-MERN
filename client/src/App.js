@@ -1,6 +1,6 @@
 import "./App.css";
 // import "/"
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import Login from "./pages/login/Login";
 // import 'sweetalert2/src/sweetalert2.scss';
 import Home from "./pages/home/Home";

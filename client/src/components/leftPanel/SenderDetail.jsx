@@ -1,10 +1,8 @@
 import React, { useContext } from "react";
-import useStore from "../../store/store";
 import { authContext } from "../../context/UserRegister";
 
 const SenderDetail = () => {
   const { saveUser } = useContext(authContext);
-  // console.log(saveUser);
   return (
     <div>
       <div className="ps-4 mb-3 pe-4 d-flex">

@@ -1,7 +1,7 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import * as yup from "yup";
 import { toast } from "react-toastify";
-import { useLocation, useNavigate } from "react-router-dom";
+// import { useLocation, useNavigate } from "react-router-dom";
 import { authContext } from "../context/UserRegister";
 
 const loginValidation = yup.object().shape({
@@ -20,10 +20,6 @@ const useLoginData = () => {
       theme: "colored",
     });
     try {
-      console.log("Backend URL:", process.env.REACT_APP_BACKEND_URL);
-
-      console.log({ ...values }, "ll");
-      // const response = await fetch(`${window.location.origin}/auth/login`, {
       const response = await fetch(
         // `https://chatbackend-ij9m.onrender.com/auth/login`,
         `${process.env.REACT_APP_BACKEND_URL}/auth/login`,

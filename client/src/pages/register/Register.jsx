@@ -16,9 +16,6 @@ const Register = () => {
       gender: "",
     },
     validationSchema: registerValidation,
-    validate: (values) => {
-      // console.log(formik);
-    },
     onSubmit: async (values) => {
       // console.log(values);
       await signupApi(values);

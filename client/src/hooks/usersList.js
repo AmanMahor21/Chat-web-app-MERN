@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { toast } from "react-toastify";
 import useStore from "../store/store";
 
 const useUsersList = () => {
   // const [allUsers, setAllUsers] = useState(null);
-  const { setAllUser, allUser, chat, setChat, setAllLast_MsgDay } = useStore();
+  const { setAllUser, allUser, setAllLast_MsgDay } = useStore();
   // console.log(allUser, "allUser");
 
   useEffect(() => {

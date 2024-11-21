@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import * as yup from "yup";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { authContext } from "../context/UserRegister";
 
 const upperCase = /[A-Z]/;
@@ -37,7 +37,7 @@ const registerValidation = yup.object().shape({
 const useSignup = () => {
   const { setSaveUser } = useContext(authContext);
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const signupApi = async (values) => {
     setLoading(true);

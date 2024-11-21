@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 // import useStore from "../../store/store";
 import useGetMessages from "../../hooks/useGetMessages";
 import { authContext } from "../../context/UserRegister";
 import useStore from "../../store/store";
 import { decodeTime } from "../../utils/decodeTime";
 import useGetTextFromSocket from "../../hooks/useGetTextFromSocket";
-import notificationSound from "../../assets/sounds/notification.mp3";
+// import notificationSound from "../../assets/sounds/notification.mp3";
 // import useExtractDate from "../../utils/extractDate";
 import { format, isValid } from "date-fns";
 import useAllMessages from "../../hooks/useAllMessages";
@@ -13,15 +13,12 @@ import useAllMessages from "../../hooks/useAllMessages";
 const ConversationBox = () => {
   const lastMessage = useRef(null);
   const findChatsRef = useRef([]);
-  const { saveUser, onlineUser, socketIo } = useContext(authContext);
-  const { selected, searchText, setSearchedMsg, searchedMsg, moveChat } =
-    useStore();
+  const { saveUser } = useContext(authContext);
+  const { searchText, setSearchedMsg, searchedMsg, moveChat } = useStore();
   const chat = useGetMessages();
 
   useAllMessages(saveUser);
-  // useEffect(() => {
-  //   fetchAllChat();
-  // }, []);
+
   useGetTextFromSocket();
 
   // automatically scoll to the last message
@@ -74,7 +71,7 @@ const ConversationBox = () => {
             const enableSenderWrap = messageTurn
               ? "chat_wrapper"
               : "receiver_wrap";
-            const textShake = chat.length - 1 == ind;
+            const textShake = chat.length - 1 === ind;
             const shakeTurn = textShake ? "shakeMsg" : "";
             const currDate = formatDate(msg?.createdAt);
             const prevDate = ind > 0 && formatDate(chat[ind - 1].createdAt);
@@ -86,11 +83,10 @@ const ConversationBox = () => {
                 )}
                 <div
                   className={`${enableSenderWrap} ${
-                    ind == searchedMsg[moveChat] ? "highlight" : ""
+                    ind === searchedMsg[moveChat] ? "highlight" : ""
                   } `}
                   key={ind}
                 >
-                  {/* {currDate !== prevDate && <div>{currDate}</div>} */}
                   <div
                     className={`${enableSender} ${shakeTurn} `}
                     // className={`${enableSender} ${shakeTurn} ${highLight}`}

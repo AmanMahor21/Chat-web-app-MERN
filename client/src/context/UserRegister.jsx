@@ -1,21 +1,21 @@
 import { createContext, useEffect, useState } from "react";
 import { io } from "socket.io-client"; // Ensure correct import
-import useStore from "../store/store";
+// import useStore from "../store/store";
 const authContext = createContext();
 
 const UserRegisterContext = ({ children }) => {
   const [saveUser, setSaveUser] = useState(null);
   const [socketIo, setSocket] = useState(null);
   const [onlineUser, setOnlineUser] = useState(null);
-  const getUserFromLocal = JSON.parse(localStorage.getItem("userData"));
-  const { chat, date } = useStore();
+  // const getUserFromLocal = JSON.parse(localStorage.getItem("userData"));
+  // const { chat, date } = useStore();
   // console.log(selected, "asdasdasfsd selcted");
 
-  useEffect(() => {
-    if (getUserFromLocal) {
-      setSaveUser(getUserFromLocal);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (getUserFromLocal) {
+  //     setSaveUser(getUserFromLocal);
+  //   }
+  // }, []);
 
   // console.log(saveUser, "56666522");
   useEffect(() => {

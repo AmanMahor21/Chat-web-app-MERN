@@ -1,11 +1,11 @@
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { authContext } from "../context/UserRegister";
 import axios from "axios";
 import useStore from "../store/store";
 
 const useGetAllUnseenCount = () => {
   const { saveUser } = useContext(authContext);
-  const { unseenCount, setUnseenCount } = useStore();
+  const { setUnseenCount } = useStore();
 
   // console.log(unseenCount);
   const getAllunseenCount = async () => {

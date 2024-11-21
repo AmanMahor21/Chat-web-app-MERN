@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { BsSearch } from "react-icons/bs";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useLogout } from "../../validation/logoutValidation";
@@ -17,14 +17,10 @@ const Conversation = () => {
     setMoveChat,
     searchedMsg,
     moveChat,
-    chat,
   } = useStore();
   const { onlineUser } = useContext(authContext);
   const logouthandle = useLogout();
-  // console.log(onlineUser, "onlineUser onlineUser");
-  // console.log(selected, " 454 65 4654 5 465 4");
   const isActive = onlineUser?.includes(selected?._id);
-  // console.log(isActive, " i m active");
   const handleClick = () => {
     Swal.fire({
       title: "Search chat history",

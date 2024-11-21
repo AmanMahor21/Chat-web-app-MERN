@@ -1,13 +1,13 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext} from "react";
 import MessageHeader from "./MessageHeader";
 import ConversationBox from "./ConversationBox";
 import { TiMessages } from "react-icons/ti";
 import MessageInputField from "./MessageInputField";
-import useStore from "../../store/store";
+// import useStore from "../../store/store";
 import { authContext } from "../../context/UserRegister";
 
 const MessageContainer = () => {
-  const { selected, setSelected } = useStore();
+  // const { selected, setSelected } = useStore();
   const welcomeScreen = false;
   // const welcomeScreen = selected ? false : true;
   // useEffect(() => {
