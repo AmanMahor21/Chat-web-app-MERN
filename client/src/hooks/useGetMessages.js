@@ -29,7 +29,7 @@ const useGetMessages = () => {
     };
 
     getMessage();
-  }, [selected?._id, setChat]);
+  }, [selected, setChat]);
   return chat;
 };
 

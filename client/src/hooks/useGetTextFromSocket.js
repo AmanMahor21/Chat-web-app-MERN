@@ -14,7 +14,7 @@ const useGetTextFromSocket = () => {
       addNewMsg(newMessage);
     });
     return () => socketIo?.off("textSend");
-  }, [setChat, socketIo]);
+  }, [setChat, socketIo, addNewMsg]);
 };
 
 export default useGetTextFromSocket;

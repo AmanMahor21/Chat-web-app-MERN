@@ -44,7 +44,7 @@ const useUsersList = () => {
       }
     };
     chatUser();
-  }, [setAllLast_MsgDay]);
+  }, [setAllLast_MsgDay, setAllUser]);
   // }, [setChat,setAllLast_MsgDay]);
   return allUser;
 };

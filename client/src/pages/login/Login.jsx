@@ -1,14 +1,14 @@
-import React, { useContext, useState } from "react";
+// import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import {
   loginValidation,
   useLoginData,
 } from "../../validation/loginValidation";
-import { authContext } from "../../context/UserRegister";
+// import { authContext } from "../../context/UserRegister";
 
 const Login = () => {
-  const { setSaveUser } = useContext(authContext);
+  // const { setSaveUser } = useContext(authContext);
   const loginData = useLoginData();
   const formik = useFormik({
     initialValues: {

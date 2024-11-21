@@ -8,15 +8,17 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:3000", 
-    methods: ["GET", "POST", "PUT", "DELETE"], 
-    credentials: true, 
+    // origin: "http://localhost:3000",
+    origin: "https://quickwebchat.netlify.app", // Allow requests from Netlify frontend
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
   })
 );
 const httpServer = http.createServer(app);
 const io = new Server(httpServer, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "https://quickwebchat.netlify.app", // Allow requests from Netlify frontend
+    // origin: "http://localhost:3000",
     methods: ["GET", "POST"],
     credentials: true,
   },
