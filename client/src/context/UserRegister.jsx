@@ -30,7 +30,7 @@ const UserRegisterContext = ({ children }) => {
     }
     if (!saveUser) return;
     // Create socket connection
-    const socket = io("http://localhost:5121", {
+    const socket = io(`${process.env.REACT_APP_BACKEND_URL}`, {
       query: { userId: saveUser._id },
       transports: ["websocket"], // Ensure WebSocket transport
       withCredentials: true, // Include credentials in the request
