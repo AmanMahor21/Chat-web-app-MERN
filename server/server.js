@@ -18,7 +18,7 @@ const port = process.env.REACT_APP_SERVER_PORT || 8080;
 //   methods: ["GET", "POST", "PUT", "DELETE"],
 //   credentials: true, // Allow cookies to be sent with cross-origin requests
 // }));
-app.use(express.json()); 
+app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.json());
 
