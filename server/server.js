@@ -16,11 +16,12 @@ const port = process.env.REACT_APP_SERVER_PORT || 8080;
 app.use(
   cors({
     origin: process.env.FRONTEND_URL,
-    methods: ["GET", "POST", "PUT", "DELETE",], // Include OPTIONS
+    methods: ["GET", "POST", "PUT", "DELETE"], // Include OPTIONS
     allowedHeaders: ["Content-Type", "Authorization"], // Include any custom headers
     credentials: true,
   })
 );
+console.log("ok");
 // app.use(cors({
 //   origin: "http://localhost:3000", // Adjust the frontend URL as needed
 //   methods: ["GET", "POST", "PUT", "DELETE"],
