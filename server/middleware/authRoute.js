@@ -10,7 +10,7 @@ const authRoute = async (req, res, next) => {
         .json({ error: "Unauthorized access : Token not found" });
     }
 
-    const decoded = jwt.verify(cookie, process.env.REACT_APP_JSON_KEY);
+    const decoded = jwt.verify(cookie, process.env.JSON_KEY);
     if (!decoded) {
       return res.status(409).json({ error: "Unauthorized : Invalid token" });
     }

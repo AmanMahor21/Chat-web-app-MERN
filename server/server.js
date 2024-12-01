@@ -13,6 +13,14 @@ const { app, httpServer } = require("./utils/socketIo");
 dotnev.config();
 const port = process.env.REACT_APP_SERVER_PORT || 8080;
 
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Include OPTIONS
+    allowedHeaders: ["Content-Type", "Authorization"], // Include any custom headers
+    credentials: true,
+  })
+);
 // app.use(cors({
 //   origin: "http://localhost:3000", // Adjust the frontend URL as needed
 //   methods: ["GET", "POST", "PUT", "DELETE"],
@@ -25,6 +33,10 @@ app.use(bodyParser.json());
 // app.get("/", (req, res) => {
 //   res.send("Hello World!");
 // });
+app.get("/test-cookie", (req, res) => {
+  console.log("Cookies:", req.cookies);
+  res.send("Check server logs for cookie details.");
+});
 app.use("/auth", authRoutes);
 app.use("/messages", messageRoutes);
 // app.use("/api/allMessages", messageRoutes);

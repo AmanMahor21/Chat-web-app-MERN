@@ -5,7 +5,7 @@ const cors = require("cors");
 const { userInfo } = require("os");
 
 const app = express();
-console.log(process.env.FRONTEND_URL);
+console.log(process.env.FRONTEND_URL, "mmmmmmmmmmmmmmmm");
 app.use(
   cors({
     origin: process.env.FRONTEND_URL,
@@ -17,15 +17,17 @@ app.use(
   })
 );
 app.options("*", (req, res) => {
-  res.header(
-    "Access-Control-Allow-Origin",
-    process.env.FRONTEND_URL 
-  );
+  res.header("Access-Control-Allow-Origin", process.env.FRONTEND_URL);
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
   res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
   res.header("Access-Control-Allow-Credentials", "true");
   res.sendStatus(204); // No Content
 });
+
+// app.get("/test-cors", (req, res) => {
+//   res.header("Access-Control-Allow-Origin", process.env.FRONTEND_URL);
+//   res.json({ success: true });
+// });
 const httpServer = http.createServer(app);
 const io = new Server(httpServer, {
   cors: {

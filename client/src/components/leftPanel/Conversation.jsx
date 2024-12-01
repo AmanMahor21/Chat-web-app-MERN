@@ -74,7 +74,7 @@ const Conversation = ({ user, idx, ind }) => {
     sessionStorage.setItem("selectedUser", JSON.stringify(user._id));
     await tickUnreadMsg(user);
   };
-
+  console.log(user, "user");
   return (
     <div
       key={user._id}
@@ -91,24 +91,26 @@ const Conversation = ({ user, idx, ind }) => {
         <div className="">{user.username}</div>
 
         {/* {formateDate?.length > 0 && */}
-        {formateDate?.map((ele, ind) => {
-          if (user._id === ele._id) {
-            return (
-              <div key={ind}>
-                <div>{user.lastMessageDay ? `${user.lastMessageDay}` : ""}</div>
-                {/* <div className="text-slate-700 text-sm "> */}
-                {/* {user.messageDay} */}
-                {/* {ele.createdAt || user.messageDay || ""} */}
-                {/* </div> */}
-                {ele.unreadCount > 0 && (
-                  <div className="rounded-full bg-[#248449] text-sm p-1">
-                    {`+ ${ele.unreadCount}`}
-                  </div>
-                )}
-              </div>
-            );
-          }
-        })}
+        <div>
+          <div>{user.lastMessageDay}</div>
+          {formateDate?.map((ele, ind) => {
+            if (user._id === ele._id) {
+              return (
+                <div key={ind}>
+                  {/* <div className="text-slate-700 text-sm "> */}
+                  {/* {user.messageDay} */}
+                  {/* {ele.createdAt || user.messageDay || ""} */}
+                  {/* </div> */}
+                  {ele.unreadCount > 0 && (
+                    <div className="rounded-full bg-[#248449] text-sm p-1">
+                      {`+ ${ele.unreadCount}`}
+                    </div>
+                  )}
+                </div>
+              );
+            }
+          })}
+        </div>
       </div>
     </div>
   );

@@ -79,6 +79,7 @@ const login = async function (req, res) {
       succees: "true",
       user: removePassword,
     });
+    // console.log("Cookie has been set");
   } catch (error) {
     console.log("Error in login controller");
     res.status(500).json({ error, error: "Internal Server Error" });
