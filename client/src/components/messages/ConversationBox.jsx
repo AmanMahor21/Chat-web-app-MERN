@@ -17,7 +17,7 @@ const ConversationBox = () => {
   const { searchText, setSearchedMsg, searchedMsg, moveChat } = useStore();
   const chat = useGetMessages();
 
-  useAllMessages(saveUser);
+  // useAllMessages(saveUser);
 
   useGetTextFromSocket();
 

@@ -4,23 +4,26 @@ import Conversation from "./Conversation";
 import useUsersList from "../../hooks/usersList";
 import useGetAllUnseenCount from "../../hooks/useGetAllUnseenCount";
 import useExtractDate from "../../utils/extractDate";
-// import { authContext } from "../../context/UserRegister";
+import { authContext } from "../../context/UserRegister";
+import { useContext } from "react";
 
 const UsersList = () => {
   const allUser = useUsersList();
   useGetAllUnseenCount();
-  useExtractDate();
+
+  const {socketIo} = useContext(authContext)
+  // useExtractDate();
   console.log(allUser);
   // const getSelectedUser = JSON.parse(sessionStorage.getItem("selectedUser"));
   // console.log(getSelectedUser);
   // useEffect(() => {
   //   const initialSelectedUser = getSelectedUser ? null : getSelectedUser;
-  //   socketIo.emit("selectedUser", {
-  //     sender: saveUser?._id,
-  //     openUser: selected?._id,
-  //     // selectedUser: getSelectedUser ? getSelectedUser : selected?._id,
-  //     selectedUser: initialSelectedUser,
-  //   });
+    // socketIo.emit("selectedUser", {
+    //   sender: saveUser?._id,
+    //   openUser: selected?._id,
+    //   // selectedUser: getSelectedUser ? getSelectedUser : selected?._id,
+    //   selectedUser: initialSelectedUser,
+    // });
   //   socketIo.on("sendUser", (data) => {
   //     setIsSelected(data);
   //   });

@@ -4,8 +4,8 @@ import axios from "axios";
 import useStore from "../store/store";
 
 const useGetAllUnseenCount = () => {
-  const { saveUser } = useContext(authContext);
-  const { setUnseenCount } = useStore();
+  const { setFormatDate, saveUser } = useContext(authContext);
+  // const {  setFormatDate } = useStore();
 
   // console.log(unseenCount);
   const getAllunseenCount = async () => {
@@ -18,8 +18,9 @@ const useGetAllUnseenCount = () => {
         }
       );
 
-      // console.log("Unseen messages count:", res.data.data);
-      setUnseenCount(res.data.data);
+      console.log("Unseen messages count:", res.data.data);
+      // setUnseenCount(res.data.data);
+      setFormatDate(res.data.data);
       // res.data.data.map((ele, ind) => {
       //   // console.log(ele._id, ele.unreadCount);
       //   setUnseenCount(ele._id, ele.unreadCount, ele.createdAt);

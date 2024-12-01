@@ -10,6 +10,7 @@ const sendMessage = async (req, res) => {
     // console.log(isUserSelected, "122");
     // console.log(isSelected, "isSelected");
     const receiverID = req.params.id;
+    // console.log(req.user._id, "sss"); 
     const senderID = req.user._id;
 
     // console.log(clickedUser, "clickedUser clickedUser");
@@ -22,6 +23,7 @@ const sendMessage = async (req, res) => {
         participants: [senderID, receiverID],
       });
     }
+    one_On_One.lastMessage = { content: message, timestamp: new Date() };
     const newMessage = await Message.create({
       senderID,
       receiverID,
@@ -34,15 +36,8 @@ const sendMessage = async (req, res) => {
     }
     await one_On_One.save();
 
-    // console.log(one_On_One._id, "reverid");
-    // const updatedUser = await User.findByIdAndUpdate(
-    //   receiverID,
-    //   { lastMessages: newMessage._id },
-    //   { new: true }
-    // );
-    // console.log(updatedUser, "updated user");
-
     await res.status(200).json(newMessage);
+    // console.log(newMessage, "updated user");
     const activeUser = activeIds(receiverID);
     // console.log(activeUser, "activer iser");
     if (activeUser) {
@@ -57,7 +52,7 @@ const sendMessage = async (req, res) => {
       read: false,
     });
     // console.log(unreadCount, "ss");
-    const senderIDString = senderID.toString(); // Convert ObjectId to string
+    const senderIDString = newMessage.senderID.toString(); // Convert ObjectId to string
     // console.log(senderIDString, "ss555");
     io.to(activeUser).emit(
       "unreadCount",

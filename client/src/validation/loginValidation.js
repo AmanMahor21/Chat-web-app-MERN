@@ -14,6 +14,7 @@ const useLoginData = () => {
   const { setSaveUser } = useContext(authContext);
 
   const loginData = async (values) => {
+    console.log(values);
     toast.loading("please Wait", {
       autoClose: 2000,
       position: "top-right",

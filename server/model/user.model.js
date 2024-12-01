@@ -27,13 +27,6 @@ const userSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
-    // lastMessages: [messageSchema],
-    messageDay: {
-      // type: mongoose.Schema.Types.ObjectId,
-      type: String,
-      default: null,
-      // ref: "Message",
-    },
   },
   { timestamps: true }
 );

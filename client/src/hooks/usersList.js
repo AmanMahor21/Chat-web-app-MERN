@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import useStore from "../store/store";
+import extractDate from "../utils/extractDate";
 
 const useUsersList = () => {
   // const [allUsers, setAllUsers] = useState(null);
@@ -8,13 +9,9 @@ const useUsersList = () => {
   // console.log(allUser, "allUser");
 
   useEffect(() => {
+    // console.log("asd");
     const chatUser = async () => {
       try {
-        console.log(
-          "Backend URL 5665 56 65:",
-          process.env.REACT_APP_BACKEND_URL
-        );
-
         const res = await fetch(
           `${process.env.REACT_APP_BACKEND_URL}/api/users`,
           {
@@ -26,16 +23,22 @@ const useUsersList = () => {
             credentials: "include",
           }
         );
-        // console.log(res);
         const data = await res.json();
         if (!res.ok || data.error) {
           throw new Error(data.error);
         }
-        // console.log(data, "i m from api userlist");
-        // setAllUsers(data);
-        setAllUser(data);
+        console.log(data, "i m from api userlist");
+        const updatedData = extractDate(data);
+
+        if (updatedData) {
+          console.log(updatedData, "mm561322222222222222222");
+          setAllUser(updatedData);
+        }
+
+        // dayCreated && setAllUser(data);
+        // console.log(dayCreated, "dayCreated");
+        // setAllUser(data);
       } catch (error) {
-        // console.log(error);
         toast.error(error.message || "Failed to get users", {
           position: "bottom-left",
           autoClose: 2000,
@@ -44,7 +47,8 @@ const useUsersList = () => {
       }
     };
     chatUser();
-  }, [setAllLast_MsgDay, setAllUser]);
+  }, []);
+  // }, [setAllLast_MsgDay]);
   // }, [setChat,setAllLast_MsgDay]);
   return allUser;
 };

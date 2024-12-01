@@ -1,55 +1,73 @@
-import React, { memo, useContext, useEffect } from "react";
+import React, { memo, useContext, useEffect, useRef } from "react";
 import useStore from "../../store/store";
 import { authContext } from "../../context/UserRegister";
 import useReadUnseenMsg from "../../hooks/UseReadUnseenMsg";
-import useExtractDate from "../../utils/extractDate";
+// import useExtractDate from "../../utils/extractDate";
 import { format, isValid } from "date-fns";
+import useAllMessages from "../../hooks/useAllMessages";
 
-const Conversation = memo(({ user, idx, ind }) => {
-  const { selected, setSelected } = useStore();
-
-  const { onlineUser, socketIo } = useContext(authContext);
+const Conversation = ({ user, idx, ind }) => {
+  const { selected, setSelected, chat, unseenCount } =
+    // const { selected, setSelected, chat, formateDate, setFormatDate } =
+    useStore();
+  const selectedUSer = useRef(selected);
+  // console.log(unseenCount, "unseenCount");
+  const { onlineUser, socketIo, saveUser, formateDate, setFormatDate } =
+    useContext(authContext);
   const isOpen = selected && selected._id === user._id;
   const isOnline = onlineUser && onlineUser.includes(user._id);
 
-  const { formateDate, setFormatDate } = useExtractDate(user);
+  // console.log(formateDate, "formateDate");
+  //  useExtractDate(user);
   const tickUnreadMsg = useReadUnseenMsg();
+  // console.log(formateDate);
+  useAllMessages(saveUser);
+  // useEffect(() => {
+  // fetchAllChat(user);
+  // }, [user]);
+  useEffect(() => {
+    selectedUSer.current = selected;
+  }, [selected]);
+
+  const handleUnreadCount = (unreadCount, senderId, createdAt) => {
+    // console.log(unreadCount, "unreadCount");
+    if (senderId == selectedUSer?.current?._id && unreadCount > 0) {
+      tickUnreadMsg(user);
+      return;
+    }
+
+    setFormatDate((prev = []) => {
+      const newData = [...prev];
+      const indx = newData.findIndex((ele) => ele._id === senderId);
+      const newDate = new Date(createdAt);
+      const formattedToDay = isValid(newDate) ? format(newDate, "eee") : null;
+
+      if (indx !== -1) {
+        newData[indx] = {
+          ...newData[indx],
+          createdAt: formattedToDay,
+          unreadCount: unreadCount,
+          // unreadCount: unseenCount.length > 0   || unreadCount,
+        };
+      } else {
+        newData.push({
+          _id: senderId,
+          createdAt: formattedToDay,
+          unreadCount: unreadCount,
+          // unreadCount: unseenCount || unreadCount,
+        });
+      }
+      return newData;
+    });
+  };
 
   useEffect(() => {
-    const handleUnreadCount = (unreadCount, senderId, createdAt) => {
-      if (senderId === selected?._id) {
-        tickUnreadMsg(user);
-        return;
-      }
-
-      setFormatDate((prev = []) => {
-        const newData = [...prev];
-        const indx = newData.findIndex((ele) => ele._id === senderId);
-        const newDate = new Date(createdAt);
-        const formatedTo_Day = isValid(newDate) ? format(newDate, "eee") : null;
-        if (indx !== -1) {
-          newData[indx] = {
-            ...newData[indx],
-            createdAt: formatedTo_Day,
-            unreadCount: unreadCount,
-          };
-        } else {
-          newData.push({
-            _id: senderId,
-            createdAt: formatedTo_Day,
-            unreadCount: unreadCount,
-          });
-        }
-        return newData;
-      });
-    };
-
     socketIo.on("unreadCount", handleUnreadCount);
 
     return () => {
       socketIo.off("unreadCount", handleUnreadCount);
     };
-  }, [selected?._id]);
+  }, [socketIo]);
 
   const handleSelectedUser = async () => {
     setSelected(user);
@@ -72,28 +90,28 @@ const Conversation = memo(({ user, idx, ind }) => {
       <div className="d-flex justify-content-between align-items-center flex-grow-1 ps-2 pe-2">
         <div className="">{user.username}</div>
 
-        <div>{user.messageDay ? `${user.messageDay}` : ""}</div>
-        {formateDate?.length > 0 &&
-          formateDate?.map((ele, ind) => {
-            if (user._id === ele._id) {
-              return (
-                <div key={ind}>
-                  <div className="text-slate-700 text-sm ">
-                    {user.messageDay}
-                    {/* {ele.createdAt || user.messageDay || ""} */}
+        {/* {formateDate?.length > 0 && */}
+        {formateDate?.map((ele, ind) => {
+          if (user._id === ele._id) {
+            return (
+              <div key={ind}>
+                <div>{user.lastMessageDay ? `${user.lastMessageDay}` : ""}</div>
+                {/* <div className="text-slate-700 text-sm "> */}
+                {/* {user.messageDay} */}
+                {/* {ele.createdAt || user.messageDay || ""} */}
+                {/* </div> */}
+                {ele.unreadCount > 0 && (
+                  <div className="rounded-full bg-[#248449] text-sm p-1">
+                    {`+ ${ele.unreadCount}`}
                   </div>
-                  {ele.unreadCount > 0 && (
-                    <div className="rounded-full bg-[#248449] text-sm p-1">
-                      {`+ ${ele.unreadCount}`}
-                    </div>
-                  )}
-                </div>
-              );
-            }
-          })}
+                )}
+              </div>
+            );
+          }
+        })}
       </div>
     </div>
   );
-});
+};
 
 export default Conversation;

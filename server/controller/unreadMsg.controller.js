@@ -3,7 +3,7 @@ const Message = require("../model/message.model");
 
 const { activeIds, io } = require("../utils/socketIo");
 const unreadMsg = async (req, res) => {
-  console.log(req.params.id, "Asd");
+  // console.log(req.params.id, "Asd");
   // console.log(req.body.recieverID, "kkk");
   const senderID = req.params.id;
   const receiverID = req.body.recieverID;
@@ -24,6 +24,9 @@ const unreadMsg = async (req, res) => {
     // console.log(unreadCount, "server");
     // console.log(senderID, "serve55555r");
     const activeUser = activeIds(receiverID);
+    // if (activeUser) {
+    //   io.to(activeUser).emit("unreadCount", unreadCount, senderID);
+    // }
     if (activeUser) {
       io.to(activeUser).emit("unreadCount", unreadCount, senderID);
     }
@@ -39,13 +42,8 @@ const unreadMsg = async (req, res) => {
 
 const getAllUnseenCount = async (req, res) => {
   const receiverId = new mongoose.Types.ObjectId(req.params.id);
-  // console.log("Receiver ID:", receiverId);
   try {
-    // const testQuery = await Message.find({
-    //   receiverID: receiverId,
-    //   read: false,
-    // });
-    // console.log("Test Query Result:", testQuery[testQuery.length - 1]);
+   
     const allUnseenCount = await Message.aggregate([
       {
         $match: {
