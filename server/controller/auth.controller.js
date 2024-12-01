@@ -72,7 +72,7 @@ const login = async function (req, res) {
         error: " Incorect email or password",
       });
     }
-    // console.log(person);
+    // console.log(person);Error in login controller
     generateAccessToken(person._id, res);
     res.status(201).json({
       message: " User logged in successfully",
@@ -81,7 +81,7 @@ const login = async function (req, res) {
     });
     // console.log("Cookie has been set");
   } catch (error) {
-    console.log("Error in login controller");
+    console.log("Error in login controller", error);
     res.status(500).json({ error, error: "Internal Server Error" });
   }
 };

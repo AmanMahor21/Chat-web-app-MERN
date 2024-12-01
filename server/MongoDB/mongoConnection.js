@@ -6,7 +6,7 @@ dotnev.config();
 const mongoConnection = async () => {
   try {
     console.log("Connected mongo DB");
-    await mongoose.connect(process.env.REACT_APP_MONGO_URL);
+    await mongoose.connect(process.env.MONGO_URL);
   } catch (error) {
     console.log(error);
   }

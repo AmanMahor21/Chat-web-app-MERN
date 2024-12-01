@@ -11,7 +11,7 @@ const bodyParser = require("body-parser");
 const { app, httpServer } = require("./utils/socketIo");
 
 dotnev.config();
-const port = process.env.REACT_APP_SERVER_PORT || 8080;
+const port = process.env.SERVER_PORT || 8080;
 
 app.use(
   cors({
