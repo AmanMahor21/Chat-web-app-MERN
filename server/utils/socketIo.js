@@ -11,7 +11,8 @@ app.use(
     origin: process.env.FRONTEND_URL,
     // origin: "http://localhost:3000",
     // origin: "https://quickwebchat.netlify.app", // Allow requests from Netlify frontend
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Include OPTIONS
+    allowedHeaders: ["Content-Type", "Authorization"], // Include any custom headers
     credentials: true,
   })
 );
@@ -20,8 +21,8 @@ const io = new Server(httpServer, {
   cors: {
     // origin: "https://quickwebchat.netlify.app", // Allow requests from Netlify frontend
     origin: process.env.FRONTEND_URL,
-    // origin: "http://localhost:3000",
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Include OPTIONS
+    allowedHeaders: ["Content-Type", "Authorization"], // Include any custom headers
     credentials: true,
   },
 });
