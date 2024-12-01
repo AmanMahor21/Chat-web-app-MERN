@@ -16,7 +16,7 @@ const port = process.env.REACT_APP_SERVER_PORT || 8080;
 app.use(
   cors({
     origin: process.env.FRONTEND_URL,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Include OPTIONS
+    methods: ["GET", "POST", "PUT", "DELETE",], // Include OPTIONS
     allowedHeaders: ["Content-Type", "Authorization"], // Include any custom headers
     credentials: true,
   })
