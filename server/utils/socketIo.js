@@ -16,13 +16,23 @@ app.use(
     credentials: true,
   })
 );
+app.options("*", (req, res) => {
+  res.header(
+    "Access-Control-Allow-Origin",
+    process.env.FRONTEND_URL 
+  );
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.sendStatus(204); // No Content
+});
 const httpServer = http.createServer(app);
 const io = new Server(httpServer, {
   cors: {
     // origin: "https://quickwebchat.netlify.app", // Allow requests from Netlify frontend
     origin: process.env.FRONTEND_URL,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Include OPTIONS
-    allowedHeaders: ["Content-Type", "Authorization"], // Include any custom headers
+    // allowedHeaders: ["Content-Type", "Authorization"], // Include any custom headers
     credentials: true,
   },
 });

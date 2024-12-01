@@ -2,7 +2,7 @@ const dotenv = require("dotenv");
 var jwt = require("jsonwebtoken");
 dotenv.config();
 const generateAccessToken = async (userID, res) => {
-  console.log(process.env.REACT_APP_JSON_KEY);
+  // console.log(process.env.REACT_APP_JSON_KEY);
   const token = jwt.sign({ userID }, process.env.REACT_APP_JSON_KEY, {
     expiresIn: "1d",
   });
