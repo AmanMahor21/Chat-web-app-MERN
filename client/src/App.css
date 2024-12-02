@@ -155,7 +155,7 @@ body {
 /* search bar style */
 .sideBar_Wrapper {
   padding: 12px 0 12px 0;
-  /* width: 444px; */
+  width: 444px;
   /* background-color: #9e92d4; */
   background-color: #0a465c;
   /* background-color: #54b1d2; */
@@ -274,7 +274,7 @@ body {
   height: 37px;
   width: 37px;
   /* color: #7575d9; */
-  color: #0a465c;
+  color: #343437;
   /* color: #54b1d2; */
 }
 .receiverStatus {
@@ -465,6 +465,7 @@ body {
   position: relative;
   display: flex;
   align-items: center;
+  width: max-content;
 }
 
 .avatar {
@@ -476,10 +477,10 @@ body {
 
 .status {
   position: absolute;
-  bottom: 10px;
+  bottom: 2px;
   right: 5px;
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
   border: 2px solid #fff;
 }
@@ -494,7 +495,7 @@ body {
   height: 80px;
   display: flex;
   margin-block: 11px;
-
+  padding-block: 9px;
   padding-inline: 22px;
   border-bottom: 1px solid rgb(190, 184, 184);
 }

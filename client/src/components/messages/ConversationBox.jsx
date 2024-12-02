@@ -72,7 +72,7 @@ const ConversationBox = () => {
         <>
           {chat?.map((msg, ind) => {
             const messageTurn = msg.senderID === saveUser._id;
-            const enableSender = messageTurn ? "right" : "bubble left  ";
+            const enableSender = messageTurn ? "right" : "bubble left";
             const enableSenderWrap = messageTurn
               ? "chat_wrapper"
               : "receiver_wrap";

@@ -1,4 +1,4 @@
-import React, { memo, useContext, useEffect, useRef } from "react";
+import React, { memo, useContext, useEffect, useRef, useState } from "react";
 import useStore from "../../store/store";
 import { authContext } from "../../context/UserRegister";
 import useReadUnseenMsg from "../../hooks/UseReadUnseenMsg";
@@ -7,11 +7,13 @@ import { format, isValid } from "date-fns";
 import useAllMessages from "../../hooks/useAllMessages";
 
 const Conversation = ({ user, idx, ind }) => {
+  const [highLightUnreadMsg, setHighLightUnreadMsg] = useState(false);
+
   const { selected, setSelected, chat, unseenCount } =
     // const { selected, setSelected, chat, formateDate, setFormatDate } =
     useStore();
   const selectedUSer = useRef(selected);
-  // console.log(unseenCount, "unseenCount");
+  console.log(chat, "chat");
   const { onlineUser, socketIo, saveUser, formateDate, setFormatDate } =
     useContext(authContext);
   const isOpen = selected && selected._id === user._id;
@@ -74,6 +76,23 @@ const Conversation = ({ user, idx, ind }) => {
     sessionStorage.setItem("selectedUser", JSON.stringify(user._id));
     await tickUnreadMsg(user);
   };
+
+  console.log(user, "mm");
+
+  // useEffect(() => {
+  //   let foundUnreadMsg = formateDate.map((ele) => {
+  //     if (ele._id == user._id && ele.unreadCount > 0) {
+  //       return true;
+  //     }
+  //   });
+  // }, [formateDate]);
+  useEffect(() => {
+    const hasUnread = formateDate.some(
+      (ele) => ele._id === user._id && ele.unreadCount > 0
+    );
+    setHighLightUnreadMsg(hasUnread);
+  }, [formateDate]);
+
   return (
     <div
       key={user._id}
@@ -86,24 +105,37 @@ const Conversation = ({ user, idx, ind }) => {
         <img src={user.avatar} alt="User Avatar" className="avatar" />
         <div className={`status ${isOnline ? "active" : "inActive"}`}></div>
       </div>
-      <div className="d-flex justify-content-between align-items-center flex-grow-1 ps-2 pe-2">
-        <div className="">{user.username}</div>
+      <div className="d-flex justify-content-between align-items-center flex-1 ps-3 pe-2 py-[6px]">
+        <div className="h-full flex flex-col justify-between items-center">
+          <div className="font-medium text-start">{user.username}</div>
+          {/* <div className="text-sm text-gray-400 truncate overflow-hidden whitespace-nowrap flex-grow-0 break-words"> */}
+          <div
+            className={`text-sm truncate text-start max-w-[160px] md:max-w-[200px] lg:max-w-[275px] ${
+              highLightUnreadMsg ? "text-lime-300" : "text-gray-400"
+            }`}
+          >
+            {user.content}
+          </div>
+        </div>
 
         {/* {formateDate?.length > 0 && */}
-        <div>
-          <div>{user.lastMessageDay}</div>
+        <div className="h-full flex flex-col justify-between items-center">
+          <div className="text-sm">{user.lastMessageDay}</div>
           {formateDate?.map((ele, ind) => {
             if (user._id === ele._id) {
               return (
-                <div key={ind}>
+                <div key={ind} className="flex justify-end w-full">
                   {/* <div className="text-slate-700 text-sm "> */}
                   {/* {user.messageDay} */}
                   {/* {ele.createdAt || user.messageDay || ""} */}
                   {/* </div> */}
                   {ele.unreadCount > 0 && (
-                    <div className="rounded-full bg-[#248449] text-sm p-1">
-                      {`+ ${ele.unreadCount}`}
+                    <div className="flex items-center justify-center rounded-full bg-[#248449] text-white text-sm w-6 h-6">
+                      {ele.unreadCount}
                     </div>
+                    // <div className="rounded-full bg-[#248449]  text-sm p-1">
+                    //   {ele.unreadCount}
+                    // </div>
                   )}
                 </div>
               );

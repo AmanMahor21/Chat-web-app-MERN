@@ -1,13 +1,17 @@
-import { useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import useStore from "../store/store";
 import extractDate from "../utils/extractDate";
+import checkNewDay from "../utils/checkNewDay";
+import { authContext } from "../context/UserRegister";
 
 const useUsersList = () => {
   // const [allUsers, setAllUsers] = useState(null);
-  const { setAllUser, allUser, setAllLast_MsgDay } = useStore();
+  const { setAllUser, allUser, chat, setAllLast_MsgDay } = useStore();
+  const { formateDate } = useContext(authContext);
   // console.log(allUser, "allUser");
-
+  const [rawUser, setRarUser] = useState([]);
+  checkNewDay(rawUser, chat);
   useEffect(() => {
     // console.log("asd");
     const chatUser = async () => {
@@ -27,6 +31,7 @@ const useUsersList = () => {
         if (!res.ok || data.error) {
           throw new Error(data.error);
         }
+        setRarUser(data);
         console.log(data, "i m from api userlist");
         const updatedData = extractDate(data);
 
@@ -47,7 +52,7 @@ const useUsersList = () => {
       }
     };
     chatUser();
-  }, []);
+  }, [chat?.length, formateDate]);
   // }, [setAllLast_MsgDay]);
   // }, [setChat,setAllLast_MsgDay]);
   return allUser;

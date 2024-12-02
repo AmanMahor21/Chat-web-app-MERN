@@ -33,8 +33,9 @@ const MessageInputField = () => {
         className="messsageInput"
         onChange={(e) => setInput(e.target.value)}
       />
-      <button type="submit" className="sendBtn">
-        <IoIosSend />
+      <button type="submit" className="sendBtn ">
+        {/* <button type="submit" className="sendBtn "> */}
+        <IoIosSend className=" hover:fill-[#082c39]" />
       </button>
     </form>
   );
