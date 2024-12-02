@@ -45,6 +45,11 @@ const useLoginData = () => {
       // console.log(data);
       localStorage.setItem("userData", JSON.stringify(data.user));
       setSaveUser(data.user);
+      const expiresIn = 15 * 24 * 60 * 60; // 15 days in seconds
+
+      // Calculate the expiration time in milliseconds
+      const expirationTime = new Date().getTime() + expiresIn * 1000;
+      localStorage.setItem("sessionExpiry", expirationTime);
 
       toast.dismiss();
       toast.success("Login Successful", {

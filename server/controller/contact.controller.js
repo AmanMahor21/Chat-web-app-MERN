@@ -9,7 +9,6 @@ const contactController = async (req, res) => {
     const allUsers = await User.find({ _id: { $ne: senderID } }).select(
       "-password"
     );
-    console.log(allUsers, "mnnb");
     const usersWithLastMessage = await Promise.all(
       allUsers.map(async (user) => {
         // Find the most recent conversation involving the current user and sender
@@ -25,7 +24,6 @@ const contactController = async (req, res) => {
       })
     );
     // .populate({ path: "last  Messages" });
-    console.log(usersWithLastMessage, "i m from controller");
     res.status(200).json(usersWithLastMessage);
   } catch (error) {
     console.log("Error in contactController controller", error);

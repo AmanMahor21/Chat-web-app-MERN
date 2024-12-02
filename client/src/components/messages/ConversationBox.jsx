@@ -9,16 +9,32 @@ import useGetTextFromSocket from "../../hooks/useGetTextFromSocket";
 // import useExtractDate from "../../utils/extractDate";
 import { format, isValid } from "date-fns";
 import useAllMessages from "../../hooks/useAllMessages";
+import { useNavigate } from "react-router-dom";
 
 const ConversationBox = () => {
   const lastMessage = useRef(null);
   const findChatsRef = useRef([]);
-  const { saveUser } = useContext(authContext);
-  const { searchText, setSearchedMsg, searchedMsg, moveChat } = useStore();
+  const { saveUser, setSaveUser, formateDate } = useContext(authContext);
+  const { searchText, setSearchedMsg, searchedMsg, moveChat, selected } =
+    useStore();
   const chat = useGetMessages();
+
+  const navigate = useNavigate();
 
   // useAllMessages(saveUser);
 
+  //automatically logout when session cookie expire
+  useEffect(() => {
+    const sessionExpiry = localStorage.getItem("sessionExpiry");
+    const currentTime = new Date().getTime(); // Get the current time in milliseconds
+    if (sessionExpiry && currentTime >= sessionExpiry) {
+      // return true; // Session is valid
+      localStorage.removeItem("userData");
+      localStorage.removeItem("sessionExpiry");
+      setSaveUser("");
+      navigate("/login");
+    }
+  }, [chat?.length, selected, formateDate]);
   useGetTextFromSocket();
 
   // automatically scoll to the last message
@@ -26,7 +42,7 @@ const ConversationBox = () => {
     lastMessage?.current?.scrollIntoView({ behavior: "smooth" });
   }, [chat]);
 
-  // Handle to group message by date in conversation. 
+  // Handle to group message by date in conversation.
   const formatDate = (chatDate) => {
     const parsedDate = new Date(chatDate);
     if (isValid(parsedDate)) {
@@ -34,8 +50,7 @@ const ConversationBox = () => {
     }
   };
 
-
-  // Finding the matching searched text in a conversationHello. Hello. Hello. Funny. Hey, Cortana. Yeah. What? 
+  // Finding the matching searched text in a conversationHello. Hello. Hello. Funny. Hey, Cortana. Yeah. What?
   useEffect(() => {
     if (searchText !== "" && searchText !== null) {
       const chatIndex = chat?.reduce((total, curr, step) => {
@@ -51,7 +66,7 @@ const ConversationBox = () => {
     }
   }, [searchText]);
 
-  // Automatically scroll to the searched the message in a Conversation 
+  // Automatically scroll to the searched the message in a Conversation
   useEffect(() => {
     if (searchedMsg?.length > 0) {
       findChatsRef?.current[searchedMsg[moveChat]].scrollIntoView({

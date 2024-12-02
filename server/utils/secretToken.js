@@ -8,14 +8,14 @@ const generateAccessToken = async (userID, res) => {
     expiresIn: "1d",
   });
 
+  const isProduction = process.env.NODE_ENV === "production";
   res.cookie("cookie", token, {
-    maxAge: 1 * 24 * 60 * 60 * 1000,
+    maxAge: 15 * 24 * 60 * 60 * 1000,
     httpOnly: true,
-    // secure: false,
     secure: true,
-    // secure: process.env.NODE_ENV === "production", // Only secure cookies in production
-    // sameSite: "lax",
     sameSite: "none",
+    // secure: isProduction, // Secure cookies in production
+    // sameSite: isProduction ? "none" : "lax",
   });
   return token;
   // res.json({ message: "Error in JWT token generation" });
