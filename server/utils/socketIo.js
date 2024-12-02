@@ -9,8 +9,6 @@ console.log(process.env.FRONTEND_URL);
 app.use(
   cors({
     origin: process.env.FRONTEND_URL,
-    // origin: "http://localhost:3000",
-    // origin: "https://quickwebchat.netlify.app", // Allow requests from Netlify frontend
     methods: ["GET", "POST", "PUT", "DELETE"], // Include OPTIONS
     allowedHeaders: ["Content-Type", "Authorization"], // Include any custom headers
     credentials: true,

@@ -25,6 +25,8 @@ const ConversationBox = () => {
   useEffect(() => {
     lastMessage?.current?.scrollIntoView({ behavior: "smooth" });
   }, [chat]);
+
+  // Handle to group message by date in conversation. 
   const formatDate = (chatDate) => {
     const parsedDate = new Date(chatDate);
     if (isValid(parsedDate)) {
@@ -32,6 +34,8 @@ const ConversationBox = () => {
     }
   };
 
+
+  // Finding the matching searched text in a conversationHello. Hello. Hello. Funny. Hey, Cortana. Yeah. What? 
   useEffect(() => {
     if (searchText !== "" && searchText !== null) {
       const chatIndex = chat?.reduce((total, curr, step) => {
@@ -47,6 +51,7 @@ const ConversationBox = () => {
     }
   }, [searchText]);
 
+  // Automatically scroll to the searched the message in a Conversation 
   useEffect(() => {
     if (searchedMsg?.length > 0) {
       findChatsRef?.current[searchedMsg[moveChat]].scrollIntoView({

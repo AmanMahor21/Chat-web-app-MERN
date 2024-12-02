@@ -74,7 +74,6 @@ const Conversation = ({ user, idx, ind }) => {
     sessionStorage.setItem("selectedUser", JSON.stringify(user._id));
     await tickUnreadMsg(user);
   };
-  console.log(user, "user");
   return (
     <div
       key={user._id}

@@ -1,6 +1,6 @@
 import "./App.css";
 // import "/"
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import Login from "./pages/login/Login";
 // import 'sweetalert2/src/sweetalert2.scss';
 import Home from "./pages/home/Home";
@@ -13,8 +13,11 @@ import Register from "./pages/register/Register";
 import { authContext } from "./context/UserRegister";
 
 function App() {
-  const { saveUser } = useContext(authContext);
-  // toast.dismiss();
+  const { saveUser, setSaveUser } = useContext(authContext);
+  useEffect(() => {
+    const loginUser = JSON.parse(localStorage.getItem("userData"));
+    if (loginUser) setSaveUser(loginUser);
+  }, [setSaveUser]);
 
   return (
     <div className="appWrapper">

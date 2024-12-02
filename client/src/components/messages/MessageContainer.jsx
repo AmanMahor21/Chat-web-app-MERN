@@ -1,18 +1,17 @@
-import React, { useContext} from "react";
+import React, { useContext } from "react";
 import MessageHeader from "./MessageHeader";
 import ConversationBox from "./ConversationBox";
 import { TiMessages } from "react-icons/ti";
 import MessageInputField from "./MessageInputField";
 // import useStore from "../../store/store";
 import { authContext } from "../../context/UserRegister";
+import useStore from "../../store/store";
 
 const MessageContainer = () => {
-  // const { selected, setSelected } = useStore();
-  const welcomeScreen = false;
-  // const welcomeScreen = selected ? false : true;
-  // useEffect(() => {
-  //   return () => setSelected(null);
-  // }, [setSelected]);
+  const { selected, setSelected } = useStore();
+  // const welcomeScreen = false;
+  const welcomeScreen = selected ? false : true;
+
   return (
     <div className="MessageWrapper">
       {welcomeScreen ? (

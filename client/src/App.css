@@ -157,7 +157,8 @@ body {
   padding: 12px 0 12px 0;
   /* width: 444px; */
   /* background-color: #9e92d4; */
-  background-color: #54b1d2;
+  background-color: #0a465c;
+  /* background-color: #54b1d2; */
   /* background-color: rgb(216, 220, 224); */
   height: 100vh;
   flex: 0 1 444px;
@@ -214,7 +215,7 @@ body {
 }
 .selectedUser {
   /* background-color: #7575d9; */
-  background-color: #2d99bc;
+  background-color: #082c39;
 }
 .MessageWrapper {
   width: clamp(333px, 80vw, 888px);
@@ -273,7 +274,8 @@ body {
   height: 37px;
   width: 37px;
   /* color: #7575d9; */
-  color: #54b1d2;
+  color: #0a465c;
+  /* color: #54b1d2; */
 }
 .receiverStatus {
   font-size: 14px;
@@ -351,8 +353,8 @@ body {
 #dropdownMenuButton1,
 .msgSearch_Wrap {
   border-radius: 50%;
-  border: 1px solid #54b1d2;
-  background-color: #54b1d2;
+  border: 1px solid #0a465c;
+  background-color: #0a465c;
   width: 35px;
   height: 35px;
   margin-inline: 10px;
@@ -368,7 +370,7 @@ body {
 } */
 #dropdownMenuButton1:hover,
 .msgSearch_Wrap:hover {
-  box-shadow: 2px 2px 10px 2px #54b1d2, -2px -2px 10px 2px #54b1d2;
+  box-shadow: 2px 2px 10px 2px #0a465c, -2px -2px 10px 2px #0a465c;
 }
 .messHead_Icons svg {
   height: 18px;
@@ -424,7 +426,7 @@ body {
   border-bottom-right-radius: 0 0;
   letter-spacing: 1px;
   justify-content: flex-end;
-  background-color: #54b1d2 !important;
+  background-color: #0a465c !important;
   /* background-color: #7575d9 !important; */
 }
 .chat_wrapper {
@@ -501,6 +503,8 @@ body {
 }
 
 .highlight {
-  background-color: rgba(255, 255, 14, 0.862);
+  background-color: rgb(223, 223, 90);
+  padding: 3px 2px;
+  border-radius: 6px;
 }
 /* serach box header */
