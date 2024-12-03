@@ -8,6 +8,7 @@ const UserRegisterContext = ({ children }) => {
   const [socketIo, setSocket] = useState(null);
   const [onlineUser, setOnlineUser] = useState([]);
   const [formateDate, setFormatDate] = useState([]);
+  const [loader, setLoader] = useState(false);
 
   // console.log(onlineUser, "56666522");
   useEffect(() => {
@@ -34,7 +35,7 @@ const UserRegisterContext = ({ children }) => {
     });
 
     socket.on("activeUser", (activeUser_Id) => {
-      console.log(activeUser_Id, "activeUser_Id");
+      // console.log(activeUser_Id, "activeUser_Id");
       setOnlineUser(activeUser_Id);
     });
 
@@ -64,6 +65,8 @@ const UserRegisterContext = ({ children }) => {
         onlineUser,
         formateDate,
         setFormatDate,
+        loader,
+        setLoader,
       }}
     >
       {children}

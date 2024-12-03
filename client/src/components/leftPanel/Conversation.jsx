@@ -5,6 +5,7 @@ import useReadUnseenMsg from "../../hooks/UseReadUnseenMsg";
 // import useExtractDate from "../../utils/extractDate";
 import { format, isValid } from "date-fns";
 import useAllMessages from "../../hooks/useAllMessages";
+import Skeleton from "../loader/Skeleton";
 
 const Conversation = ({ user, idx, ind }) => {
   const [highLightUnreadMsg, setHighLightUnreadMsg] = useState(false);
@@ -13,8 +14,7 @@ const Conversation = ({ user, idx, ind }) => {
     // const { selected, setSelected, chat, formateDate, setFormatDate } =
     useStore();
   const selectedUSer = useRef(selected);
-  console.log(chat, "chat");
-  const { onlineUser, socketIo, saveUser, formateDate, setFormatDate } =
+  const { onlineUser, socketIo, saveUser, formateDate, setFormatDate, loader } =
     useContext(authContext);
   const isOpen = selected && selected._id === user._id;
   const isOnline = onlineUser && onlineUser.includes(user._id);
@@ -32,7 +32,7 @@ const Conversation = ({ user, idx, ind }) => {
   }, [selected]);
 
   const handleUnreadCount = (unreadCount, senderId, createdAt) => {
-    // console.log(unreadCount, "unreadCount");
+    console.log(unreadCount, "unreadCount");
     if (senderId == selectedUSer?.current?._id && unreadCount > 0) {
       tickUnreadMsg(user);
       return;
@@ -77,8 +77,7 @@ const Conversation = ({ user, idx, ind }) => {
     await tickUnreadMsg(user);
   };
 
-  console.log(user, "mm");
-
+  console.log(formateDate);
   // useEffect(() => {
   //   let foundUnreadMsg = formateDate.map((ele) => {
   //     if (ele._id == user._id && ele.unreadCount > 0) {
@@ -94,55 +93,61 @@ const Conversation = ({ user, idx, ind }) => {
   }, [formateDate]);
 
   return (
-    <div
-      key={user._id}
-      className={`singleUser ${idx ? "lastDivider" : ""} ${
-        isOpen ? "selectedUser" : ""
-      }`}
-      onClick={handleSelectedUser}
-    >
-      <div className="avatar-container">
-        <img src={user.avatar} alt="User Avatar" className="avatar" />
-        <div className={`status ${isOnline ? "active" : "inActive"}`}></div>
-      </div>
-      <div className="d-flex justify-content-between align-items-center flex-1 ps-3 pe-2 py-[6px]">
-        <div className="h-full flex flex-col justify-between items-center">
-          <div className="font-medium text-start">{user.username}</div>
-          {/* <div className="text-sm text-gray-400 truncate overflow-hidden whitespace-nowrap flex-grow-0 break-words"> */}
-          <div
-            className={`text-sm truncate text-start max-w-[160px] md:max-w-[200px] lg:max-w-[275px] ${
-              highLightUnreadMsg ? "text-lime-300" : "text-gray-400"
-            }`}
-          >
-            {user.content}
+    <div className=" relative">
+      {loader ? (
+        <div className=" pt-4">
+          <Skeleton />
+        </div>
+      ) : (
+        <div
+          key={user._id}
+          className={`singleUser hover:bg-cyan-900  ${
+            idx ? "lastDivider" : ""
+          } ${isOpen ? "selectedUser" : ""} `}
+          onClick={handleSelectedUser}
+        >
+          <div className="avatar-container">
+            <img src={user.avatar} alt="User Avatar" className="avatar" />
+            <div className={`status ${isOnline ? "active" : "inActive"}`}></div>
+          </div>
+          <div className="d-flex justify-content-between align-items-center flex-1 ps-3 pe-2 py-[6px]">
+            <div className="h-full flex flex-col justify-between items-center">
+              <div className="font-medium text-start">{user.username}</div>
+              <div
+                className={`text-sm truncate text-start max-w-[160px] md:max-w-[200px] lg:max-w-[275px] ${
+                  highLightUnreadMsg ? "text-lime-300" : "text-gray-400"
+                }`}
+              >
+                {user.content}
+              </div>
+            </div>
+
+            <div className="h-full flex flex-col justify-between items-center">
+              <div className="text-sm">{user.lastMessageDay}</div>
+              {formateDate?.map((ele, ind) => {
+                if (user._id === ele._id) {
+                  return (
+                    <div key={ind} className="flex justify-end w-full">
+                      {/* <div className="text-slate-700 text-sm "> */}
+                      {/* {user.messageDay} */}
+                      {/* {ele.createdAt || user.messageDay || ""} */}
+                      {/* </div> */}
+                      {ele.unreadCount > 0 && (
+                        <div className="flex items-center justify-center rounded-full bg-[#248449] text-white text-sm w-6 h-6">
+                          {ele.unreadCount}
+                        </div>
+                        // <div className="rounded-full bg-[#248449]  text-sm p-1">
+                        //   {ele.unreadCount}
+                        // </div>
+                      )}
+                    </div>
+                  );
+                }
+              })}
+            </div>
           </div>
         </div>
-
-        {/* {formateDate?.length > 0 && */}
-        <div className="h-full flex flex-col justify-between items-center">
-          <div className="text-sm">{user.lastMessageDay}</div>
-          {formateDate?.map((ele, ind) => {
-            if (user._id === ele._id) {
-              return (
-                <div key={ind} className="flex justify-end w-full">
-                  {/* <div className="text-slate-700 text-sm "> */}
-                  {/* {user.messageDay} */}
-                  {/* {ele.createdAt || user.messageDay || ""} */}
-                  {/* </div> */}
-                  {ele.unreadCount > 0 && (
-                    <div className="flex items-center justify-center rounded-full bg-[#248449] text-white text-sm w-6 h-6">
-                      {ele.unreadCount}
-                    </div>
-                    // <div className="rounded-full bg-[#248449]  text-sm p-1">
-                    //   {ele.unreadCount}
-                    // </div>
-                  )}
-                </div>
-              );
-            }
-          })}
-        </div>
-      </div>
+      )}
     </div>
   );
 };

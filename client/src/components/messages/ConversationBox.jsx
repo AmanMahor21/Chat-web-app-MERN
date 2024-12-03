@@ -7,6 +7,7 @@ import { decodeTime } from "../../utils/decodeTime";
 import useGetTextFromSocket from "../../hooks/useGetTextFromSocket";
 // import notificationSound from "../../assets/sounds/notification.mp3";
 // import useExtractDate from "../../utils/extractDate";
+import Swal from "sweetalert2";
 import { format, isValid } from "date-fns";
 import useAllMessages from "../../hooks/useAllMessages";
 import { useNavigate } from "react-router-dom";
@@ -15,8 +16,14 @@ const ConversationBox = () => {
   const lastMessage = useRef(null);
   const findChatsRef = useRef([]);
   const { saveUser, setSaveUser, formateDate } = useContext(authContext);
-  const { searchText, setSearchedMsg, searchedMsg, moveChat, selected } =
-    useStore();
+  const {
+    searchText,
+    setSearchedMsg,
+    searchedMsg,
+    moveChat,
+    selected,
+    setSearchText,
+  } = useStore();
   const chat = useGetMessages();
 
   const navigate = useNavigate();
@@ -50,7 +57,7 @@ const ConversationBox = () => {
     }
   };
 
-  // Finding the matching searched text in a conversationHello. Hello. Hello. Funny. Hey, Cortana. Yeah. What?
+  // Finding the matching searched text in a conversation
   useEffect(() => {
     if (searchText !== "" && searchText !== null) {
       const chatIndex = chat?.reduce((total, curr, step) => {
@@ -61,14 +68,16 @@ const ConversationBox = () => {
         return total;
       }, []);
       setSearchedMsg(chatIndex);
+      // setSearchText("");
     } else {
       setSearchedMsg([]);
     }
   }, [searchText]);
 
+  console.log(searchedMsg, searchText, "search");
   // Automatically scroll to the searched the message in a Conversation
   useEffect(() => {
-    if (searchedMsg?.length > 0) {
+    if (searchedMsg.length > 0) {
       findChatsRef?.current[searchedMsg[moveChat]].scrollIntoView({
         behavior: "smooth",
         block: "center",

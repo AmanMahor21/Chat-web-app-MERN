@@ -41,7 +41,6 @@ const useStore = create((set) => ({
         const matchingMsgDay = lastMsgDays.find(
           (day) => day._id === user._id // Check if user._id matches any _id in lastMsgDays
         );
-        console.log("Matching messageDay:", matchingMsgDay); // Debug log for each match
         return matchingMsgDay
           ? { ...user, messageDay: matchingMsgDay.createdAt }
           : user;

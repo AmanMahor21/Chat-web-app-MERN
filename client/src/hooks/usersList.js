@@ -2,19 +2,18 @@ import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import useStore from "../store/store";
 import extractDate from "../utils/extractDate";
-import checkNewDay from "../utils/checkNewDay";
 import { authContext } from "../context/UserRegister";
 
 const useUsersList = () => {
   // const [allUsers, setAllUsers] = useState(null);
-  const { setAllUser, allUser, chat, setAllLast_MsgDay } = useStore();
-  const { formateDate } = useContext(authContext);
+  const { setAllUser, allUser, chat, setAllLast_MsgDa } = useStore();
+  const { formateDate, setLoader } = useContext(authContext);
   // console.log(allUser, "allUser");
   const [rawUser, setRarUser] = useState([]);
-  checkNewDay(rawUser, chat);
   useEffect(() => {
     // console.log("asd");
     const chatUser = async () => {
+      // setLoader(true);
       try {
         const res = await fetch(
           `${process.env.REACT_APP_BACKEND_URL}/api/users`,
@@ -32,23 +31,20 @@ const useUsersList = () => {
           throw new Error(data.error);
         }
         setRarUser(data);
-        console.log(data, "i m from api userlist");
         const updatedData = extractDate(data);
 
         if (updatedData) {
-          console.log(updatedData, "mm561322222222222222222");
           setAllUser(updatedData);
         }
-
-        // dayCreated && setAllUser(data);
-        // console.log(dayCreated, "dayCreated");
-        // setAllUser(data);
       } catch (error) {
         toast.error(error.message || "Failed to get users", {
           position: "bottom-left",
           autoClose: 2000,
           theme: "colored",
         });
+      } finally {
+        // setLoader(true);
+        // setLoader(false);
       }
     };
     chatUser();

@@ -18,7 +18,6 @@ const useGetAllUnseenCount = () => {
         }
       );
 
-      console.log("Unseen messages count:", res.data.data);
       // setUnseenCount(res.data.data);
       setFormatDate(res.data.data);
       // res.data.data.map((ele, ind) => {

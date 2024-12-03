@@ -7,7 +7,6 @@ const authRoutes = require("./routes/auth.routes");
 const cookieParser = require("cookie-parser");
 const messageRoutes = require("./routes/message.routes");
 const contactRoutes = require("./routes/contact.routes");
-const sessionRoutes = require("./routes/session.routes");
 const bodyParser = require("body-parser");
 const { app, httpServer } = require("./utils/socketIo");
 
@@ -35,11 +34,8 @@ app.use(bodyParser.json());
 // app.get("/", (req, res) => {
 //   res.send("Hello World!");
 // });
-app.get("/test-cookie", (req, res) => {
-  console.log("Cookies:", req.cookies);
-  res.send("Check server logs for cookie details.");
-});
-app.use("/check-session", sessionRoutes);
+
+// app.use("/check-session", sessionRoutes);
 app.use("/auth", authRoutes);
 app.use("/messages", messageRoutes);
 // app.use("/api/allMessages", messageRoutes);

@@ -74,7 +74,7 @@ const useAllMessages = (saveUser) => {
       // console.log(lastMsgDay, "resasdasdas");
       setAllLast_MsgDay(lastMsgDay);
       return data;
-      console.log(data, "res");
+      // console.log(data, "res");
     } catch (error) {
       toast.error(error.message || "Failed to get chats", {
         position: "bottom-left",

@@ -8,14 +8,12 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Register from "./pages/register/Register";
-import useValidateSession from "./validation/validate-session";
 // import { toast } from "react-toastify";
 
 import { authContext } from "./context/UserRegister";
 
 function App() {
   const { saveUser, setSaveUser } = useContext(authContext);
-  useValidateSession();
   useEffect(() => {
     const loginUser = JSON.parse(localStorage.getItem("userData"));
     if (loginUser) setSaveUser(loginUser);

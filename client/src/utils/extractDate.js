@@ -60,7 +60,6 @@ export const countUnreadMsg = (user) => {
 };
 
 const extractDate = (users) => {
-  console.log(users, "mmmm");
   return users.map((user) => {
     const { lastMessageDay } = user;
 

@@ -14,11 +14,11 @@ const MessageContainer = () => {
 
   return (
     <div className="MessageWrapper">
+      <MessageHeader />
       {welcomeScreen ? (
         <Welcometext />
       ) : (
         <>
-          <MessageHeader />
           <ConversationBox />
           <MessageInputField />
         </>

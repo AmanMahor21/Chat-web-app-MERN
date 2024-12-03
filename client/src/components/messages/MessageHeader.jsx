@@ -70,7 +70,7 @@ const Conversation = () => {
             ""
           )}
           <div
-            onClick={handleClick}
+            onClick={!searchText ? handleClick : undefined}
             className={` position-relative ${
               searchText ? "cancelWrapper" : "msgSearch_Wrap"
             }`}
@@ -79,7 +79,8 @@ const Conversation = () => {
               <div className="flex justify-center items-center f-full">
                 <ImCancelCircle
                   className=""
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.stopPropagation();
                     setSearchText(null);
                     setMoveChat(0);
                   }}

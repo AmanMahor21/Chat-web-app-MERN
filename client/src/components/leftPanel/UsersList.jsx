@@ -13,7 +13,7 @@ const UsersList = () => {
 
   const {socketIo} = useContext(authContext)
   // useExtractDate();
-  console.log(allUser);
+  // console.log(allUser);
   // const getSelectedUser = JSON.parse(sessionStorage.getItem("selectedUser"));
   // console.log(getSelectedUser);
   // useEffect(() => {
