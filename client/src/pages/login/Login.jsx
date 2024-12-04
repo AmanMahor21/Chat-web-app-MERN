@@ -62,9 +62,9 @@ const Login = () => {
           </button>
           <div className="sign-up">
             <div className="text-start">Not register ?</div>
-            <button className="authBtn">
-              <Link to="/register">Register</Link>
-            </button>
+            <Link to="/register" className="authBtn-link">
+              <button className="authBtn">Register</button>
+            </Link>
           </div>
         </form>
       </div>

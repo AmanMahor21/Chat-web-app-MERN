@@ -80,7 +80,10 @@ const Register = () => {
                 id="flexRadioDefault1"
                 checked={formik.values.gender === "Male"}
               />
-              <label className="form-check-label" for="flexRadioDefault1">
+              <label
+                className="form-check-label text-gray-600"
+                for="flexRadioDefault1"
+              >
                 Male
               </label>
             </div>
@@ -90,12 +93,15 @@ const Register = () => {
                 type="radio"
                 value="Female"
                 name="gender"
-                id="flexRadioDefault2"
+                id="flexRadioDefault1"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
                 checked={formik.values.gender === "Female"}
               />
-              <label className="form-check-label" for="flexRadioDefault2">
+              <label
+                className="form-check-label text-gray-600"
+                for="flexRadioDefault1"
+              >
                 Female
               </label>
             </div>
@@ -111,9 +117,10 @@ const Register = () => {
           </button>
           <div className="sign-up">
             <div className="text-start">Already registered ?</div>
-            <button className="authBtn">
-              <Link to="/login">Login</Link>
-            </button>
+            <Link to="/login" className="authBtn-link">
+              <button className="authBtn">Login</button>
+            </Link>
+           
           </div>
         </form>
       </div>

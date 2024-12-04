@@ -26,6 +26,7 @@ const useLogout = () => {
         throw new Error(data.error);
       }
       localStorage.removeItem("userData");
+      localStorage.removeItem("sessionExpiry");
       setSaveUser("");
       navigate("/login");
     } catch (error) {
