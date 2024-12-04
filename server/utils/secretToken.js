@@ -5,7 +5,7 @@ const generateAccessToken = async (userID, res) => {
   // console.log(process.env.JSON_KEY, "222222222222");
   console.log(userID, "userID");
   const token = jwt.sign({ userID }, process.env.JSON_KEY, {
-    expiresIn: "1d",
+    expiresIn: "15d",
   });
 
   const isProduction = process.env.NODE_ENV === "production";
