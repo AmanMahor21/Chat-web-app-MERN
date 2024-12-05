@@ -87,7 +87,17 @@ const login = async function (req, res) {
 };
 const logout = (req, res) => {
   try {
-    res.cookie("cookie", "", { maxAge: 0 });
+    console.log(process.env.NODE_ENV);
+    // res.cookie("cookie", "", { maxAge: 0 });
+    res.cookie("cookie", "", {
+      maxAge: 0, // Expire immediately
+      httpOnly: true, // Same as when set
+      secure: true,
+      sameSite: "none",
+      // path: "/",
+      // secure: process.env.NODE_ENV === "production", // Match secure flag
+      // sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Match sameSite
+    });
     res.json({ message: "User logged out successfully" });
   } catch (error) {
     console.log("Error in logout controller");

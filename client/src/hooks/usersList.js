@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import { toast } from "react-toastify";
 import useStore from "../store/store";
 import extractDate from "../utils/extractDate";
@@ -10,10 +10,13 @@ const useUsersList = () => {
   const { formateDate, setLoader } = useContext(authContext);
   // console.log(allUser, "allUser");
   const [rawUser, setRarUser] = useState([]);
+  const isFirstMount = useRef(true);
   useEffect(() => {
     // console.log("asd");
     const chatUser = async () => {
-      // setLoader(true);
+      if (isFirstMount.current) {
+        setLoader(true);
+      }
       try {
         const res = await fetch(
           `${process.env.REACT_APP_BACKEND_URL}/api/users`,
@@ -44,7 +47,8 @@ const useUsersList = () => {
         });
       } finally {
         // setLoader(true);
-        // setLoader(false);
+        setLoader(false);
+        isFirstMount.current = false;
       }
     };
     chatUser();
