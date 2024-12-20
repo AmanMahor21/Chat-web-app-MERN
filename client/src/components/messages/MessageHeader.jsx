@@ -50,7 +50,9 @@ const Conversation = () => {
   return (
     <div className="d-flex pt-2 pb-2 ps-3 mess_Header flex">
       <div className="avatar-container">
-        <img src={selected?.avatar} alt="User Avatar" className="avatar" />
+        {selected && (
+          <img src={selected?.avatar} alt="User Avatar" className="avatar" />
+        )}
       </div>
       <div className=" ps-3 flex-grow-1 d-flex justify-content-between ">
         <div>

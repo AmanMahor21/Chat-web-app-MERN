@@ -36,7 +36,7 @@ const Searchbar = () => {
         placeholder="Search.."
         onChange={(e) => setInput(e.target.value)}
       />
-      <div className="serachIcon" type="sumbit">
+      <div className="serachIcon cursor-pointer" type="sumbit">
         <BsSearch />
       </div>
     </form>
