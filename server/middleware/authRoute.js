@@ -6,13 +6,13 @@ const authRoute = async (req, res, next) => {
     const cookie = await req.cookies.cookie;
     if (!cookie) {
       return res
-        .status(401)
+        .status(403)
         .json({ error: "Unauthorized access : Token not found" });
     }
 
     const decoded = jwt.verify(cookie, process.env.JSON_KEY);
     if (!decoded) {
-      return res.status(409).json({ error: "Unauthorized : Invalid token" });
+      return res.status(403).json({ error: "Unauthorized : Invalid token" });
     }
     const user = await User.findById(decoded.userID).select("-password");
     if (!user) {

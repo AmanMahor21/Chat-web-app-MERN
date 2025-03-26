@@ -5,35 +5,28 @@ import useStore from "../store/store";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { isValid, format } from "date-fns";
-// import { authContext } from "../context/UserRegister";
+import { api } from "../utils/axiosInstance";
+
 const useAllMessages = (saveUser) => {
   const { setAllLast_MsgDay, setFormatDate } = useStore();
-  // const {saveUser} = useContext(authContext)
-  // console.log(saveUser._id, "ll");
-  // useEffect(() => {
+  console.log(saveUser, "userrrrrrr");
   const fetchAllChat = async (user) => {
     try {
-      // const res = await fetch(
-      const res = await fetch(
-        `${process.env.REACT_APP_BACKEND_URL}/messages/login-user/${saveUser._id}`,
-        {
-          // `http://localhost:5121/messages/login-user/${saveUser._id}`,
+      console.log("Fetching chat started");
+      const res = await api.get(`/messages/login-user/${saveUser._id}`);
+      console.log("API Response:", res);
+    } catch (error) {
+      console.error("Error in fetchAllChat:", error);
+    }
+    try {
+      // Send GET request using Axios
+      const res = await api.get(`/messages/login-user/${saveUser._id}`);
 
-          method: "GET",
-          credentials: "include",
-        }
-      );
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data.error);
-      }
-      // console.log(data, "nn");
-      // setAllChat(data);
-      // console.log(data, "res");
-
+      const data = res.data; // Axios automatically parses JSON
       data.forEach((msg) => {
         const { _id, createdAt, message } = msg;
         const relevantId = _id.sender === user._id ? _id.receiver : _id.sender;
+
         const formattedDate = isValid(new Date(createdAt))
           ? format(new Date(createdAt), "eee")
           : null;
@@ -61,20 +54,19 @@ const useAllMessages = (saveUser) => {
           return newData;
         });
       });
+
       const lastMsgDay = data.map((ele) => {
         const newDate = new Date(ele.createdAt);
         const day = isValid(newDate);
         return {
-          _id:
-            saveUser._id === ele._id.sender ? ele._id.receiver : ele._id.sender,
+          _id: saveUser._id === ele._id.sender ? ele._id.receiver : ele._id.sender,
           createdAt: day ? format(newDate, "eee") : null,
           unreadCount: ele.unreadCount || 0,
         };
       });
-      // console.log(lastMsgDay, "resasdasdas");
+
       setAllLast_MsgDay(lastMsgDay);
       return data;
-      // console.log(data, "res");
     } catch (error) {
       toast.error(error.message || "Failed to get chats", {
         position: "bottom-left",
@@ -83,9 +75,8 @@ const useAllMessages = (saveUser) => {
       });
     }
   };
-  // fetchAllChat();
-  // return fetchAllChat;
-  // }, [saveUser]);
+
+  return fetchAllChat;
 };
 
 export default useAllMessages;

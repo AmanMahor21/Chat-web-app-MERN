@@ -5,7 +5,7 @@ const cors = require("cors");
 const { userInfo } = require("os");
 
 const app = express();
-console.log(process.env.FRONTEND_URL);
+console.log(process.env.FRONTEND_URL, "mmmmmm");
 app.use(
   cors({
     origin: process.env.FRONTEND_URL,

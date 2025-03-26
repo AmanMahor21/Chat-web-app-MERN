@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
+// const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
+
 const Message = require("./message.model");
 const messageSchema = require("./message.model");
 const conversation = require("./conversation.model");

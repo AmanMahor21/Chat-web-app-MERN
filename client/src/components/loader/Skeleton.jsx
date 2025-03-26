@@ -10,7 +10,6 @@ const Skeleton = () => {
           <div class="w-1/2 h-4 bg-gray-200 rounded animate-pulse"></div>
         </div>
       </div>
-
       <div class="flex items-center space-x-4">
         <div class="w-12 h-12 bg-gray-200 rounded-full animate-pulse"></div>
         <div class="flex-1 space-y-2">
@@ -18,7 +17,6 @@ const Skeleton = () => {
           <div class="w-1/2 h-4 bg-gray-200 rounded animate-pulse"></div>
         </div>
       </div>
-
       <div class="flex items-center space-x-4">
         <div class="w-12 h-12 bg-gray-200 rounded-full animate-pulse"></div>
         <div class="flex-1 space-y-2">

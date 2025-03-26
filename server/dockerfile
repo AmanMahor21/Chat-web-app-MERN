@@ -1,0 +1,15 @@
+# node version
+FROM node:22.11.0-alpine
+
+# working directorty
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+
+RUN npm install
+
+COPY server/ .
+
+EXPOSE 5121
+
+CMD ["node", "server.js"]

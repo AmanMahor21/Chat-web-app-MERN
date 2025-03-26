@@ -22,6 +22,7 @@ app.use(
   })
 );
 console.log("ok");
+console.log(process.env.SERVER_PORT, "serverpostrt");
 // app.use(cors({
 //   origin: "http://localhost:3000", // Adjust the frontend URL as needed
 //   methods: ["GET", "POST", "PUT", "DELETE"],

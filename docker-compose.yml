@@ -1,0 +1,21 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: server/dockerfile
+    ports:
+      - "5121:5121"
+    environment:
+      MONGO_URI: "mongodb+srv://chatDB:nN2sFSN74KlGKxOc@chat-app.80qes6f.mongodb.net/?retryWrites=true&w=majority&appName=Chat-App"
+    env_file:
+      - .env
+  
+
+  client:
+    build:
+      context: .
+      dockerfile: client/dockerfile
+    ports:
+      - "3000:3000"
+    env_file:
+      - client/.env

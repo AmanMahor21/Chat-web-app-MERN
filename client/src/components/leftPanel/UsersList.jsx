@@ -12,7 +12,7 @@ const UsersList = () => {
   const allUser = useUsersList();
   useGetAllUnseenCount();
 
-  if (allUser.length == 0 || !allUser) return <Spinner />;
+  // if (allUser.length == 0 || !allUser) return <Spinner />;
 
   return (
     <>

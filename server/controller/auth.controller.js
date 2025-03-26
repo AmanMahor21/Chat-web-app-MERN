@@ -1,5 +1,7 @@
 const user = require("../model/user.model");
-const bcrypt = require("bcrypt");
+// const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
+
 const dotenv = require("dotenv");
 const generateAccessToken = require("../utils/secretToken");
 dotenv.config();
@@ -52,8 +54,8 @@ const register = async (req, res) => {
 const login = async function (req, res) {
   try {
     const { email, password } = req.body;
-    // console.log(email, password);
     const person = await user.findOne({ email });
+    console.log(person, "person person person");
     const removePassword = await user.findOne({ email }).select("-password");
 
     // console.log(person, "person");
@@ -87,17 +89,7 @@ const login = async function (req, res) {
 };
 const logout = (req, res) => {
   try {
-    console.log(process.env.NODE_ENV);
-    // res.cookie("cookie", "", { maxAge: 0 });
-    res.cookie("cookie", "", {
-      maxAge: 0, // Expire immediately
-      httpOnly: true, // Same as when set
-      secure: true,
-      sameSite: "none",
-      // path: "/",
-      // secure: process.env.NODE_ENV === "production", // Match secure flag
-      // sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Match sameSite
-    });
+    res.clearCookie("cookie");
     res.json({ message: "User logged out successfully" });
   } catch (error) {
     console.log("Error in logout controller");
