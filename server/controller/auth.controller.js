@@ -50,44 +50,84 @@ const register = async (req, res) => {
     res.status(500).json({ error, message: "Internal Server Error" });
   }
 };
-
 const login = async function (req, res) {
   try {
     const { email, password } = req.body;
+
+    // Check for empty fields first
+    if (!email || !password) {
+      return res.status(400).json({ error: "All fields are required" });
+    }
+
+    // Find user by email
     const person = await user.findOne({ email });
-    console.log(person, "person person person");
-    const removePassword = await user.findOne({ email }).select("-password");
-
-    // console.log(person, "person");
     if (!person) {
-      return res.json({ error: "Incorrect email or password" });
+      return res.status(400).json({ error: "Incorrect email or password" });
     }
 
-    const emptyField = !email || !password;
-    if (emptyField) {
-      return res.json({ error: "All field are required" });
+    // Compare passwords
+    const isPasswordCorrect = await bcrypt.compare(password, person.password);
+    if (!isPasswordCorrect) {
+      return res.status(400).json({ error: "Incorrect email or password" });
     }
 
-    const hashPassword = await bcrypt.compare(password, person.password);
-    console.log(hashPassword,'zzz');
-    if (!hashPassword) {
-      return res.json({
-        error: " Incorect email or password",
-      });
-    }
-    // console.log(person);Error in login controller
+    // Remove password from user object for response
+    const { password: _, ...userWithoutPassword } = person.toObject();
+
+    // Generate token
     generateAccessToken(person._id, res);
-    res.status(201).json({
-      message: " User logged in successfully",
-      succees: "true",
-      user: removePassword,
+
+    // Send success response
+    res.status(200).json({
+      message: "User logged in successfully",
+      success: true,
+      user: userWithoutPassword,
     });
-    // console.log("Cookie has been set");
+
   } catch (error) {
-    console.log("Error in login controller", error);
-    res.status(500).json({ error, error: "Internal Server Error" });
+    console.error("Error in login controller", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+
+// const login = async function (req, res) {
+//   try {
+//     const { email, password } = req.body;
+//     const person = await user.findOne({ email });
+//     console.log(person, "person person person");
+//     const removePassword = await user.findOne({ email }).select("-password");
+
+//     // console.log(person, "person");
+//     if (!person) {
+//       return res.json({ error: "Incorrect email or password" });
+//     }
+
+//     const emptyField = !email || !password;
+//     if (emptyField) {
+//       return res.json({ error: "All field are required" });
+//     }
+
+//     const hashPassword = await bcrypt.compare(password, person.password);
+//     console.log(hashPassword,'zzz');
+//     if (!hashPassword) {
+//       return res.status(400).json({
+//         error: " Incorect email or password",
+//       });
+//     }
+//     // console.log(person);Error in login controller
+//     generateAccessToken(person._id, res);
+//     res.status(201).json({
+//       message: " User logged in successfully",
+//       succees: "true",
+//       user: removePassword,
+//     });
+//     // console.log("Cookie has been set");
+//   } catch (error) {
+//     console.log("Error in login controller", error);
+//     res.status(500).json({ error, error: "Internal Server Error" });
+//   }
+// };
 const logout = (req, res) => {
   try {
     res.clearCookie("cookie");
