@@ -14,7 +14,7 @@ const generateAccessToken = async (userID, res) => {
     httpOnly: true,
     secure: isProduction, // Secure cookies in production
     sameSite: isProduction ? "none" : "lax",
-    domain: "localhost",
+    // domain: "localhost",
     path: "/",
   });
   return token;

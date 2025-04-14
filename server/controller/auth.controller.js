@@ -69,6 +69,7 @@ const login = async function (req, res) {
     }
 
     const hashPassword = await bcrypt.compare(password, person.password);
+    console.log(hashPassword,'zzz');
     if (!hashPassword) {
       return res.json({
         error: " Incorect email or password",
