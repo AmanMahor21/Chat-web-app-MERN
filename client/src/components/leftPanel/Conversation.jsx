@@ -80,55 +80,61 @@ const Conversation = ({ user, idx, ind }) => {
   console.log(formateDate);
 
   useEffect(() => {
-    const hasUnread = formateDate.some(
-      (ele) => ele._id === user._id && ele.unreadCount > 0
-    );
+    const hasUnread = formateDate.some((ele) => ele._id === user._id && ele.unreadCount > 0);
     setHighLightUnreadMsg(hasUnread);
   }, [formateDate]);
 
   return (
-    <div className=" relative">
-      <div
-        key={user._id}
-        className={`singleUser hover:bg-cyan-900  ${idx ? "lastDivider" : ""} ${
-          isOpen ? "selectedUser" : ""
-        } `}
-        onClick={handleSelectedUser}
-      >
-        <div className="avatar-container">
-          <img src={user.avatar} alt="User Avatar" className="avatar" />
-          <div className={`status ${isOnline ? "active" : "inActive"}`}></div>
-        </div>
-        <div className="d-flex justify-content-between align-items-center flex-1 ps-3 pe-2 py-[6px]">
-          <div className="h-full flex flex-col justify-between items-start">
-            <div className="font-medium text-start">{user.username}</div>
-            <div
-              className={`text-sm truncate text-start max-w-[160px] md:max-w-[200px] lg:max-w-[275px] ${
-                highLightUnreadMsg ? "text-lime-500" : "text-gray-400"
-              }`}
-            >
-              {user.content}
-            </div>
+    <div className="relative">
+      {loader ? (
+        <Skeleton />
+      ) : (
+        <div
+          key={user._id}
+          className={`singleUser hover:bg-cyan-900 ${idx ? "lastDivider" : ""} ${
+            isOpen ? "selectedUser" : ""
+          }`}
+          onClick={handleSelectedUser}
+        >
+          {/* Avatar */}
+          <div className="avatar-container">
+            <img src={user.avatar} alt="User Avatar" className="avatar" />
+            <div className={`status ${isOnline ? "active" : "inActive"}`} />
           </div>
 
-          <div className="h-full flex flex-col justify-between items-center">
-            <div className="text-sm">{user.lastMessageDay}</div>
-            {formateDate?.map((ele, ind) => {
-              if (user._id === ele._id) {
-                return (
-                  <div key={ind} className="flex justify-end w-full">
-                    {ele.unreadCount > 0 && (
-                      <div className="flex items-center justify-center rounded-full bg-[#248449] text-white text-sm w-6 h-6">
-                        {ele.unreadCount}
-                      </div>
-                    )}
-                  </div>
-                );
-              }
-            })}
+          {/* User Info */}
+          <div className="d-flex justify-content-between align-items-center flex-1 ps-3 pe-2 py-[6px]">
+            <div className="h-full flex flex-col justify-between items-start">
+              <div className="font-medium text-start">{user.username}</div>
+              <div
+                className={`text-sm truncate text-start max-w-[160px] md:max-w-[200px] lg:max-w-[275px] ${
+                  highLightUnreadMsg ? "text-lime-500" : "text-gray-400"
+                }`}
+              >
+                {user.content}
+              </div>
+            </div>
+
+            {/* Time + Unread Count */}
+            <div className="h-full flex flex-col justify-between items-center">
+              <div className="text-sm">{user.lastMessageDay}</div>
+              {formateDate?.map((ele, ind) => {
+                if (user._id === ele._id) {
+                  return (
+                    <div key={ind} className="flex justify-end w-full">
+                      {ele.unreadCount > 0 && (
+                        <div className="flex items-center justify-center rounded-full bg-[#248449] text-white text-sm w-6 h-6">
+                          {ele.unreadCount}
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
+              })}
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
